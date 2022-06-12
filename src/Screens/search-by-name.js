@@ -1,4 +1,4 @@
-
+import "../App.css";
 import {  useEffect, useState } from "react";
 import { Image } from "../styles/img-style";
 import { LoadingBar } from "../styles/loading-style";
@@ -29,7 +29,7 @@ const loadCatData = (id) => {
     } )
 }
 
- 
+    //Load all Breeds at the begining
    useEffect(()=> { 
     const result = loadData("https://api.thecatapi.com/v1/breeds");
      Promise.resolve ( result).then(data => setBreeds(data));
@@ -37,14 +37,15 @@ const loadCatData = (id) => {
    
         return ( 
        <Container>
-       <LeftStats> 
-        <p><b>Description:</b>{catData?.breeds[0]?.description} </p>
 
-        </LeftStats>
         <ImageContainer>
         <DropDown loadimg={loadCatData} breeds={breeds} isLoading={isLoading} />
         { isLoading ? <LoadingBar> <Loading type="spin" color="purple" /></LoadingBar> : <Image src={catData ? catData.url: PlaceHolder} Loading="Lazy" /> }
         </ImageContainer>
+        <LeftStats> 
+        <p><b>Description:</b>{catData?.breeds[0]?.description} </p>
+
+        </LeftStats>
        <RightStats> 
         <b> {catData?.breeds[0]?.name} </b>
         <div>Affection level:  { <Star num={catData?.breeds[0]?.affection_level} /> }</div>
@@ -70,6 +71,10 @@ align-items:center;
 width:100vh;
 top:10px;
 border-radius:15px;
+@media (max-width:800px) {
+    width:80vh;
+display:grid;
+}
 `;
 
 const Container = styled.div`
@@ -77,11 +82,18 @@ display:flex;
 background-color:inherit;
 justify-content:space-between;
 height:100vh;
+@media (max-width:800px) {
+display:grid;
+}
 `;
 
 const LeftStats= styled.div`
 width:700px;
 margin-left:15px;
+@media (max-width:800px) {
+    width:400px;
+display:grid;
+}
 `;
 
 const RightStats = styled.div`
@@ -94,6 +106,15 @@ height:auto;
 box-shadow:-5px 3px 5px black;
 background-color: lightgray;
 border-radius:10px;
+@media (max-width:800px) {
+    height:500px;;
+display:grid;
+}
+@media (min-width:800px) {
+    width:400px;
+    height:500px;;
+display:grid;
+}
 `;
 
 export default SearchByName;

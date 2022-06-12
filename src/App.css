@@ -16,3 +16,7 @@ select > option {
   background:pink;
 }
 
+@media screen and (min-width:700px)
+{
+
+}
